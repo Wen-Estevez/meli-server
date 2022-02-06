@@ -5,6 +5,6 @@ const app = express();
 const itemsRouter=require("./items");
 
 //Rutas 
-app.use("/items",itemsRouter);
+app.use("/api/items",itemsRouter);
 
 module.exports = app;
