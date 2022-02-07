@@ -7,7 +7,7 @@ itemsRouter.get('/',async (req,res)=>{
     const q=req.query.q;
     try {
         const response = await meliQuery(q);
-        const categories = response.filters[0].values?response.filters[0].values[0].path_from_root.map((cat) => cat.name):response.available_filters[0].values[0].path_from_root.map((cat) => cat.name);
+        const categories = response.filters[0].values?response.filters[0].values[0].path_from_root.map((cat) => cat.name):response.available_filters[0].values.map((cat) => cat.name);
         const items = response.results.map((item) => {
             return {
                 id: item.id,
