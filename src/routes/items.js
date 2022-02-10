@@ -8,6 +8,7 @@ itemsRouter.get('/',async (req,res)=>{
     try {
         const response = await meliQuery(q);
         const categories = response.filters[0]?response.filters[0].values[0].path_from_root.map((cat) => cat.name):response.available_filters[0].values.map((cat) => cat.name);
+        console.log(categories)
         const items = response.results.map((item) => {
             return {
                 id: item.id,
@@ -41,8 +42,9 @@ itemsRouter.get('/',async (req,res)=>{
 itemsRouter.get('/:id', async (req, res) => {
     const id = req.params.id;    
     try {
-        const response = await meliParamId(id);
-        const description = await meliDescriptionId(id);
+        const normalized = id.replace(/\u200B/g, '');
+        const response = await meliParamId(normalized);
+        const description = await meliDescriptionId(normalized);
         const price = Math.trunc(response.price);
         const decimals = response.price - price;
         
